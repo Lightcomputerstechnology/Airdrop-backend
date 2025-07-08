@@ -1,12 +1,12 @@
-# backend/scraper/airdrops_fetcher.py
+# scraper/airdrops_fetcher.py
 
 import requests
 from bs4 import BeautifulSoup
 import json
 import os
 
-# ✅ Import alert function
-from backend.utils.send_alert import send_telegram_alert
+# ✅ Fixed import to avoid ModuleNotFoundError
+from utils.send_alert import send_telegram_alert
 
 def fetch_airdrops_io():
     url = "https://airdrops.io/latest/"
@@ -33,7 +33,8 @@ def fetch_airdrops_io():
     return drops
 
 def save_to_db(airdrops):
-    db_path = os.path.join("backend", "data", "airdrops.json")
+    # ✅ Save inside data/ folder at root level
+    db_path = os.path.join("data", "airdrops.json")
     with open(db_path, "w") as f:
         json.dump(airdrops, f, indent=4)
     print(f"[✓] {len(airdrops)} real airdrops saved.")
