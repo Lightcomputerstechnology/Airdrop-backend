@@ -1,13 +1,15 @@
-# backend/scripts/automation_runner.py
+# scripts/automation_runner.py
 
 import json
 import time
-from backend.utils.send_alert import send_telegram_alert
-from backend.tasks.twitter_task import perform_twitter_task
-from backend.tasks.telegram_task import perform_telegram_task
+from utils.send_alert import send_telegram_alert
+from tasks.twitter_task import perform_twitter_task
+from tasks.telegram_task import perform_telegram_task
+import os
 
 def load_airdrops():
-    with open("backend/data/airdrops.json", "r") as f:
+    file_path = os.path.join("data", "airdrops.json")
+    with open(file_path, "r") as f:
         return json.load(f)
 
 def run_automation():
@@ -27,7 +29,7 @@ def run_automation():
                 perform_telegram_task(url)
                 count += 1
 
-        time.sleep(2)  # delay between drops
+        time.sleep(2)  # Delay between drops
 
     send_telegram_alert(f"✅ Completed {count} automated tasks.")
 
