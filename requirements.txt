@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+requests
+beautifulsoup4
+web3
+selenium
+undetected-chromedriver
+telethon
+python-dotenv
