@@ -3,6 +3,10 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+import os
+
+# ✅ Import alert function
+from backend.utils.send_alert import send_telegram_alert
 
 def fetch_airdrops_io():
     url = "https://airdrops.io/latest/"
@@ -29,11 +33,22 @@ def fetch_airdrops_io():
     return drops
 
 def save_to_db(airdrops):
-    with open("backend/data/airdrops.json", "w") as f:
+    db_path = os.path.join("backend", "data", "airdrops.json")
+    with open(db_path, "w") as f:
         json.dump(airdrops, f, indent=4)
     print(f"[✓] {len(airdrops)} real airdrops saved.")
 
+def notify_new_drops(airdrops):
+    if not airdrops:
+        return
+    message = f"🪂 *{len(airdrops)} new airdrops* detected!\n\n"
+    for drop in airdrops[:5]:
+        message += f"• *{drop['title']}* ({drop['blockchain']})\n"
+        message += f"[View Drop]({drop['link']})\n\n"
+    send_telegram_alert(message)
+
 if __name__ == "__main__":
-    print("Fetching verified airdrops from airdrops.io...")
+    print("🔍 Fetching verified airdrops from airdrops.io...")
     real_drops = fetch_airdrops_io()
     save_to_db(real_drops)
+    notify_new_drops(real_drops)
