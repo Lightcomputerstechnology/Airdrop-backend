@@ -4,6 +4,7 @@ requests
 beautifulsoup4
 web3
 selenium
+setuptools
 undetected-chromedriver
 telethon
 python-dotenv
