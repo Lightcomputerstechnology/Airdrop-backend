@@ -1,8 +1,8 @@
-# backend/ai/control_layer.py
+# ai/control_layer.py
 
 from fastapi import APIRouter
-from backend.scraper.airdrops_fetcher import fetch_airdrops_io, save_to_db
-from backend.utils.send_alert import send_telegram_alert
+from scraper.airdrops_fetcher import fetch_airdrops_io, save_to_db
+from utils.send_alert import send_telegram_alert
 
 router = APIRouter()
 
