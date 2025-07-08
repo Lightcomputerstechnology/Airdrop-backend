@@ -1,8 +1,8 @@
-# backend/main.py
+# main.py
 
 from fastapi import FastAPI
-from backend.ai.control_layer import router as ai_router
-from backend.telegram.bot import router as telegram_router
+from ai.control_layer import router as ai_router
+from telegram.bot import router as telegram_router
 
 app = FastAPI(
     title="AutoDrop AI Backend",
